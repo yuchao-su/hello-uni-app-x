@@ -1,0 +1,32 @@
+# 编译输出目录
+unpackage/
+dist/
+build/
+
+# 依赖目录
+node_modules/
+
+# IDE 配置
+.idea/
+.vscode/
+.hbuilderx/
+
+# Mac 系统垃圾文件
+.DS_Store
+**/.DS_Store
+
+# 锁文件（根据使用的包管理器选择一个保留）
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+
+# 签名/证书文件
+*.jks
+*.keystore
+
+# 临时/日志/缓存文件
+*.log
+*.tmp
+
+# 如果 deploy.sh 是项目专用部署脚本且会改动，建议保留版本控制；否则忽略
+# deploy.sh
