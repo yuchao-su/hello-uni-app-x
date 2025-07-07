@@ -1937,6 +1937,13 @@
 			"style": {
 				"navigationBarTitleText": ""
 			}
+		},
+		{
+			"path" : "pages/tabBar/market-prices/index",
+			"style" : 
+			{
+				"navigationBarTitleText" : ""
+			}
 		}
 	],
 	"subPackages": [
