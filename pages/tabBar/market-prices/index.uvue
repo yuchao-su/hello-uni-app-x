@@ -114,7 +114,9 @@ export default {
     return {
       tabs,
       pages,
-      pageIndex: 0
+      pageIndex: 0,
+      // 每个一级tab下的活跃子tab索引（首次默认0）
+      subTabMap: {} as Record<number, number>
     };
   },
   computed: {
@@ -128,14 +130,29 @@ export default {
   methods: {
     onPageChange(e) {
       this.pageIndex = e.detail.current;
+      const page = this.pages[this.pageIndex];
+      if (page.subIndex !== null) {
+        this.subTabMap[page.primaryIndex] = page.subIndex;
+      }
     },
     jumpToPrimary(i) {
-      const idx = this.pages.findIndex(p => p.primaryIndex === i);
+      const tab = this.tabs[i];
+      let subIndex = this.subTabMap[i] ?? 0;
+      // 没有 children 就设为 null，避免找不到
+      if (!tab.children || !tab.children.length) {
+        subIndex = null;
+      }
+      // 在 pages[] 中找匹配的页面
+      const idx = this.pages.findIndex(p => p.primaryIndex === i && p.subIndex === subIndex);
       if (idx !== -1) this.pageIndex = idx;
     },
+
     jumpToSub(i, j) {
       const idx = this.pages.findIndex(p => p.primaryIndex === i && p.subIndex === j);
-      if (idx !== -1) this.pageIndex = idx;
+      if (idx !== -1) {
+        this.pageIndex = idx;
+        this.subTabMap[i] = j; // 👈 记录用户当前选的子tab
+      }
     }
   }
 };
